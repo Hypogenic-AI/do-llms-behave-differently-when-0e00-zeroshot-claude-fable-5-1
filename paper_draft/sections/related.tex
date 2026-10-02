@@ -1,0 +1,13 @@
+\section{Related work}
+
+\paragraph{Evaluation awareness.} \citet{needham2025large} show that frontier models classify evaluation versus deployment transcripts well above chance and that synthetic-looking prompts are one cue, but they do not isolate authorship style. \citet{abdelnabi2025hawthorne} probe and steer ``test awareness'' in reasoning models and find that it changes compliance; \citet{nguyen2025probing} build linear probes for evaluation versus deployment from contrastive prompts in Llama-3.3-70B; \citet{heidari2026evaluation} study how such representations relate to verbalisation and control. We borrow the contrastive-prompt construction for an evaluation-awareness direction and ask how it relates to an ``LLM-written'' direction.
+
+\paragraph{Detecting machine-written text from activations.} RepreGuard \citep{chen2025repreguard} and linear-probing detectors \citep{quaremba2026linear} show that human- and machine-written text are linearly separable in LLM hidden states. These works use the representation as a detector of documents. We look at the same kind of signal on the \emph{user prompt}, ask what it encodes once formality and length are controlled, and connect it to downstream behaviour by intervention.
+
+\paragraph{LLM text as the object of judgement.} Models recognise and favour their own generations when acting as evaluators \citep{panickssery2024llm}, and prefer LLM-written communications in choice settings such as hiring and product selection \citep{laurito2024ai,xu2025ai}. There, LLM text is what is being judged. We study LLM text as the \emph{instruction}.
+
+\paragraph{Prompt construction as a confound.} \citet{chalkidis2026templated} shows that templated versus fully synthetic prompt construction changes measured political stance; this is the closest behavioural analogue, for one behaviour. Model-written evaluations \citep{perez2022discovering} are widely used, and sycophancy in particular has been measured with both model-written and human-written items \citep{sharma2023towards}.
+
+\paragraph{Steering and directions.} Refusal is mediated by a single direction in many chat models \citep{arditi2024refusal}, and difference-of-means steering is a standard tool \citep{turner2023activation,rimsky2023steering}. We use the refusal direction as a positive control and follow the practice of comparing against norm-matched random directions.
+
+\paragraph{Gap.} To our knowledge no prior work (a) isolates human versus LLM style of the user prompt with content held fixed across several safety-relevant behaviours, (b) tests by intervention whether an internal ``LLM-written'' representation rather than surface features drives behaviour, and (c) relates that representation to evaluation awareness.

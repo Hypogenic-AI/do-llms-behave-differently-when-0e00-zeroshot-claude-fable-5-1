@@ -1,0 +1,19 @@
+{
+ "refusal": {
+  "n": 450,
+  "agreement": 0.9711111111111111,
+  "kappa": 0.9422290691473603
+ },
+ "sycophancy": {
+  "n": 240,
+  "agreement": 0.7791666666666667,
+  "kappa": 0.5026003988581708,
+  "agree_vs_rest_agreement": 0.8375,
+  "agree_vs_rest_kappa": 0.5278450363196125
+ },
+ "refusal_vs_regex": {
+  "n": 450,
+  "agreement": 0.8533333333333334,
+  "kappa": 0.7069734401515451
+ }
+}

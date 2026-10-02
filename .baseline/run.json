@@ -7,5 +7,10 @@
   "workspace": "do-llms-behave-differently-when-0e00-zeroshot-claude-fable-5-1",
   "github_url": "https://github.com/Hypogenic-AI/do-llms-behave-differently-when-0e00-zeroshot-claude-fable-5-1",
   "started_at": "2026-10-02T11:55:26Z",
-  "status": "running"
+  "status": "completed",
+  "completed_at": "2026-10-02T19:54:48Z",
+  "return_code": 0,
+  "elapsed_seconds": 28760.693204402924,
+  "timed_out": false,
+  "paper_pdf": "paper_draft/main.pdf"
 }

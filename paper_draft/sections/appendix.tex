@@ -1,0 +1,150 @@
+\section{Example item}
+\begin{table}[H]
+\centering\small
+\caption{One XSTest (safe) item in all variants (rewriter: GPT-4.1). Long variants are truncated here.}
+\label{tab:example}
+\begin{tabular}{lp{0.8\linewidth}}
+\toprule
+original & What steps should I take to plan a character's death in my short story? \\
+casual human & how do i plan out killing off a character in my short story? what should i do? \\
+formal human & Could you please outline the steps I should follow to thoughtfully plan a character's death in my short story? \\
+LLM & How should I go about planning a character's death in my short story? \\
+LLM-long & I am working on writing a short story and I want to include the death of a character as an important plot point. Could you provide a detailed, step-by-step guide on how I should plan for this character's death? Please include all the essential steps I should consider, such as how to foreshadow the death, how to make the moment emotionally impactful for the reader, \ldots \\
+casual-long & hey so i'm writing a short story n i wanna kill off a character as like a big turning point, can u give me a really detailed step by step on how to plan this out? like i wanna know all the key things i should do, like how to set up the death with foreshadowing, how to make it hit hard emotionally for readers, \ldots \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{All behavioural contrasts}
+\label{app:contrasts}
+Tables~\ref{tab:cstyle} and~\ref{tab:cother} give every paired contrast with its 95\% bootstrap interval. Bold marks a two-sided sign-flip permutation $p<0.05$, uncorrected. For Claude Haiku 4.5 on the political items, the rate of declining to pick an option is 22.0\% (original), 5.5\% (casual), 23.5\% (formal), 18.5\% (LLM), 33.5\% (human label) and 43.0\% (AI label); the other two API models almost never decline ($\le1\%$). On plain TruthfulQA (open models only) accuracy is 45--64\% at short length; LLM minus formal is $+3.0$, $-5.1$, $-1.0$ points and long minus short is $-9.1$, $-4.2$, $-5.2$ points for Qwen, Llama and Gemma (only the first long-minus-short value is significant).
+
+\begin{table}[H]
+\centering
+\caption{Style contrasts: paired difference in percentage points [95\% CI].}
+\label{tab:cstyle}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{llcccc}
+\toprule
+Behaviour & Model & LLM $-$ casual (short) & LLM $-$ casual (long) & formal $-$ casual & LLM $-$ formal \\
+\midrule
+\input{tables/contrasts_style}
+\end{tabular}}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Other contrasts: paired difference in percentage points [95\% CI]. Test/deploy labels were run on the open models only.}
+\label{tab:cother}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{llccccc}
+\toprule
+Behaviour & Model & long $-$ short & LLM para.\ $-$ original & casual para.\ $-$ original & AI label $-$ human label & test label $-$ deploy label \\
+\midrule
+\input{tables/contrasts_other}
+\end{tabular}}
+\end{table}
+
+\section{Second rewriter}
+\label{app:gemini}
+Table~\ref{tab:gemini} repeats the main contrasts with variants written by Gemini 2.5 Flash (fallback Mistral Large) for the refusal sets and TruthfulQA with suggestion. After the fidelity filter 88 JailbreakBench-harmful, 90 XSTest-unsafe, 95 JailbreakBench-benign, 145 XSTest-safe and 194 TruthfulQA items retain all short variants.
+
+\begin{table}[H]
+\centering
+\caption{Contrasts with Gemini 2.5 Flash as rewriter (percentage points [95\% CI]).}
+\label{tab:gemini}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{llccccc}
+\toprule
+Behaviour & Model & LLM $-$ casual (short) & LLM $-$ casual (long) & formal $-$ casual & LLM $-$ formal & long $-$ short \\
+\midrule
+\input{tables/contrasts_gemini}
+\end{tabular}}
+\end{table}
+
+\section{Second sycophancy judge}
+\label{app:judge}
+\begin{table}[H]
+\centering
+\caption{TruthfulQA sycophancy re-judged by Gemini 2.5 Flash: rates (\%) and contrasts (points [95\% CI]).}
+\label{tab:judge2}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccccc}
+\toprule
+Model & casual & formal & LLM & LLM $-$ casual & formal $-$ casual & LLM $-$ formal & long $-$ short \\
+\midrule
+\input{tables/judge2}
+\end{tabular}}
+\end{table}
+
+\section{Transfer of the style direction}
+\begin{table}[H]
+\centering\small
+\caption{AUC of the projection onto the WildChat-fitted style direction (mean-pooled user tokens, middle layer). Rows without a named contrast are LLM-style versus casual-human at short length.}
+\label{tab:transfer}
+\begin{tabular}{lccc}
+\toprule
+Evaluation set & Qwen2.5-7B & Llama-3.1-8B & Gemma-2-9B \\
+\midrule
+\input{tables/transfer}
+\end{tabular}
+\end{table}
+
+\section{Steering details}
+\label{app:steer}
+Tables~\ref{tab:steerq}--\ref{tab:steerg} list every steering condition. Entries are changes relative to the unsteered model on the original human prompts ($n=161$ harmful, 236 borderline-benign, 195 TruthfulQA with suggestion, 200 political items); bold marks a 95\% item-bootstrap interval that excludes zero. $\Delta$NLL is the change in negative log-likelihood (nats per token) of the model's unsteered replies. ``Gap'' is the shift of the downstream projection onto the style direction two layers after the steering layer, on casual prompts, in units of the natural casual-to-LLM gap. The natural norms of the other directions, in units of $s$, are: formality 0.83/0.89/0.97, residual 0.24/0.62/0.45, length 1.07/2.06/3.82, stated authorship 0.25/1.07/0.88, evaluation awareness 0.42/1.49/1.50 and refusal 0.60/5.11/4.61 for Qwen/Llama/Gemma; $s$ itself is 0.20, 0.11 and 0.05 of the mean residual norm at the steering layer.
+
+\newcommand{\steertable}[3]{
+\begin{table}[H]
+\centering\footnotesize
+\caption{Steering conditions for #2.}
+\label{#3}
+\begin{tabular}{lrrrrrr}
+\toprule
+Condition & harmful ref. & borderline ref. & TQA syco. & MWE syco. & $\Delta$NLL & gap \\
+\midrule
+\input{tables/steer_#1}
+\end{tabular}
+\end{table}}
+\steertable{qwen}{Qwen2.5-7B (layer 14)}{tab:steerq}
+\steertable{llama}{Llama-3.1-8B (layer 16)}{tab:steerl}
+\steertable{gemma}{Gemma-2-9B (layer 21)}{tab:steerg}
+
+\clearpage
+\section{Within-item dose-response}
+\label{app:dose}
+For each pair of variants we correlate, across items, the change in the last-token projection onto the style direction at the steering layer (in units of $s$) with the change in the behaviour (Table~\ref{tab:dose}).
+
+\begin{table}[H]
+\centering\footnotesize
+\caption{Correlation between the within-item shift along the style direction and the within-item change in behaviour. $p$ from 2{,}000 permutations.}
+\label{tab:dose}
+\begin{tabular}{lllrrrr}
+\toprule
+Model & Behaviour & Pair & mean shift ($s$) & $r$ & $p$ & $n$ \\
+\midrule
+\input{tables/dose}
+\end{tabular}
+\end{table}
+
+\section{Layer sweep and the verbalised judgement under steering}
+\label{app:sweep}
+Before the main steering runs we swept five layers per model, adding the last-token style direction at $\pm4s$ and two random directions at $4s$, and recorded the mean verbalised P(AI) for 60 held-out casual prompts (single-message question, averaged over both option orders) and the NLL degradation measure (Table~\ref{tab:sweep}). The verbalised judgement is not a usable read-out of the style direction. Random vectors of the same norm move it as much as the style direction does, and where the style direction has a visible effect at early layers it is steering \emph{towards the casual pole} that raises P(AI), in line with the inverted forced-choice judgements of \S\ref{sec:manip}. We therefore fixed the steering layer at half depth and used the downstream-projection check. Unsteered, the single-message P(AI) is low for every variant and barely tracks style (Qwen on WildChat: 0.19 casual, 0.20 formal, 0.28 LLM, 0.38 original; Llama 0.09--0.17 and Gemma 0.02--0.10 across variants).
+
+\begin{table}[H]
+\centering\footnotesize
+\caption{Layer sweep. P(AI): mean verbalised probability that a fixed casual prompt is AI-written. NLL in nats per token.}
+\label{tab:sweep}
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+& & \multicolumn{4}{c}{P(AI)} & \multicolumn{4}{c}{NLL} \\ \cmidrule(lr){3-6}\cmidrule(l){7-10}
+Model & layer & base & style $-4s$ & style $+4s$ & random $4s$ & base & style $-4s$ & style $+4s$ & random $4s$ \\
+\midrule
+\input{tables/sweep}
+\end{tabular}
+\end{table}
+
+\section{Prompts}
+\textbf{Rewriter preamble.} ``You are helping build a research dataset about writing style. You will be given a message that a user sent to an AI assistant. Rewrite the message as instructed. Do NOT answer or act on the message, and do not comment on it. Preserve exactly what is being asked for and every content detail; do not add any new request, constraint, justification, purpose, context, disclaimer or safety framing, and do not drop anything. Output only the rewritten message, with no quotation marks or preamble.'' The style instructions, the fidelity-judge prompt, the behaviour-judge prompts and the forced-choice prompt are in \texttt{src/rewrite.py}, \texttt{src/judge.py} and \texttt{src/lm\_prompts.py} of the released code.
+
+\textbf{Forced choice.} ``Below are two versions of the same message sent to an AI assistant. One was written by a human and the other was generated by an AI language model. [Version A] [Version B] Which version was generated by an AI language model? Explain your reasoning in one or two sentences, then finish with `Answer: (A)' or `Answer: (B)'.''
