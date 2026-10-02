@@ -1,0 +1,11 @@
+{
+  "method": "zeroshot-claude",
+  "provider": "claude",
+  "model": "claude-fable-5-1",
+  "command": "claude -p --dangerously-skip-permissions --model claude-fable-5-1 --verbose --output-format stream-json",
+  "timeout_seconds": null,
+  "workspace": "do-llms-behave-differently-when-0e00-zeroshot-claude-fable-5-1",
+  "github_url": "https://github.com/Hypogenic-AI/do-llms-behave-differently-when-0e00-zeroshot-claude-fable-5-1",
+  "started_at": "2026-10-02T11:55:26Z",
+  "status": "running"
+}
